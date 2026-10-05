@@ -1,0 +1,87 @@
+package Loja;
+
+public class Produto {
+    private String nome = "";
+    private int quantidadeEmEstoque = 0;
+    private double preco = 0.0;
+
+    public Produto(String nome, double preco){
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidadeEmEstoque = 0;
+
+    }
+    public String getNome() {
+        return this.nome;
+
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+
+    }
+    public double getPreco(){
+        return this.preco;
+
+    }
+    public void setPreco(Double preco) {
+        this.preco = preco;
+
+    }
+    public int getQuantidadeEmEstoque(){
+        return this.quantidadeEmEstoque;
+
+    }
+    public void adicionarEstoque(int quantidade) {
+        if(quantidade > 0) {
+            quantidadeEmEstoque += quantidade;
+            System.out.println("Adicionado/s " + quantidade + " item(ns) ao estoque de " + this.nome + ".");
+        }
+        else {
+            System.out.println("A quantidade para adicionar deve ser maior que zero.");
+        }
+    }
+    public void vender(int quantidade) {
+        if(quantidade <= 0) {
+            System.out.println("A quantidade para venda deve ser maior que zero.");
+        }
+        else if (quantidade <= this.quantidadeEmEstoque) {
+            this.quantidadeEmEstoque =- quantidade;
+            System.out.println("Venda realizada! " + quantidade + " unidade/s de " + this.nome + "vendiida/s.");
+        }
+        else {
+            System.out.println("Não há estoque suficiente para realização da venda.");
+        }
+    }
+    public void exibirResumo() {
+        System.out.println("<><> Resumo do Produto <><>");
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Preço: " + this.preco);
+        System.out.println("Quantidade em estoque: " + this.quantidadeEmEstoque);
+    }
+}
+
+//Main.java
+
+package Loja;
+
+public class Main {
+    public static void main(String[] args) {
+        Produto p1 = new Produto("Teclado Mecânico", 250.0);
+        p1.exibirResumo();
+
+        System.out.println("<><> ADICIONANDO ESTOQUE <><>");
+        p1.adicionarEstoque(10);
+        System.out.println("Estoque atual: " + p1.getQuantidadeEmEstoque());
+
+        System.out.println("<><> VENDA ACIMA DO ESTOQUE <><>");
+        p1.vender(15);
+
+        System.out.println("<><> CASOS EXTREMOS <><>");
+        p1.adicionarEstoque(-5); // Quantidade inválida
+        p1.vender(0);
+
+        System.out.println("<><> RESUMO FINAL <><>");
+        p1.exibirResumo();
+    }
+    
+}
