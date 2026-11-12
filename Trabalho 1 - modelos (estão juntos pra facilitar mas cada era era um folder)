@@ -1,0 +1,62 @@
+// Arma
+package modelo;
+
+public class Arma extends Item {
+    private int dano;
+
+    public Arma(int id, String nome, double peso, int dano) {
+        super(id, nome, peso);
+        this.dano = dano;
+    }
+
+    public int getDano() { return dano; }
+    public void setDano(int dano) { this.dano = dano; }
+
+    @Override
+    public String obterDetalhes() {
+        return "ARMA   | ID: " + getId() + " | Nome: " + getNome() + " | Peso: " + getPeso() + "kg | Dano: " + dano;
+    }
+}
+
+// Item
+package modelo;
+
+public abstract class Item {
+    private int id;
+    private String nome;
+    private double peso;
+
+    public Item(int id, String nome, double peso) {
+        this.id = id;
+        this.nome = nome;
+        this.peso = peso;
+    }
+
+    public int getId() { return id; }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public double getPeso() { return peso; }
+    public void setPeso(double peso) { this.peso = peso; }
+
+    public abstract String obterDetalhes();
+}
+
+// Poção
+package modelo;
+
+public class Pocao extends Item {
+    private int pontosEfeito;
+
+    public Pocao(int id, String nome, double peso, int pontosEfeito) {
+        super(id, nome, peso);
+        this.pontosEfeito = pontosEfeito;
+    }
+
+    public int getPontosEfeito() { return pontosEfeito; }
+    public void setPontosEfeito(int pontosEfeito) { this.pontosEfeito = pontosEfeito; }
+
+    @Override
+    public String obterDetalhes() {
+        return "POÇÃO  | ID: " + getId() + " | Nome: " + getNome() + " | Peso: " + getPeso() + "kg | Efeito: " + pontosEfeito;
+    }
+}
