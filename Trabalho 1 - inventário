@@ -1,0 +1,60 @@
+package gerenciamento;
+
+import modelo.Item;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Inventario {
+    private List<Item> itens;
+    private int proximoId;
+
+    public Inventario() {
+        this.itens = new ArrayList<>();
+        this.proximoId = 1;
+    }
+
+    public void adicionarItem(Item item) {
+        itens.add(item);
+        System.out.println("Item '" + item.getNome() + "' adicionado com sucesso!");
+    }
+
+    public void listarItens() {
+        if (itens.isEmpty()) {
+            System.out.println("O inventário está vazio.");
+            return;
+        }
+        System.out.println("\n<> ITENS NO INVENTÁRIO <>");
+        for (Item item : itens) {
+            System.out.println(item.obterDetalhes());
+        }
+    }
+
+    public boolean atualizarItem(int id, String novoNome, double novoPeso) {
+        for (Item item : itens) {
+            if (item.getId() == id) {
+                item.setNome(novoNome);
+                item.setPeso(novoPeso);
+                System.out.println("Item atualizado com sucesso!");
+                return true;
+            }
+        }
+        System.out.println("Erro: Item com ID " + id + " não encontrado.");
+        return false;
+    }
+
+    public boolean removerItem(int id) {
+        for (int i = 0; i < itens.size(); i++) {
+            if (itens.get(i).getId() == id) {
+                itens.remove(i);
+                System.out.println("Item removido com sucesso!");
+                return true;
+            }
+        }
+        System.out.println("Erro: Item com ID " + id + " não encontrado.");
+        return false;
+    }
+
+    public int gerarId() {
+        return proximoId++;
+    }
+}
