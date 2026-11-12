@@ -1,0 +1,99 @@
+package principal;
+
+import gerenciamento.Inventario;
+import modelo.Arma;
+import modelo.Pocao;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Inventario inventario = new Inventario();
+        int opcao = -1;
+
+        System.out.println("Bem-vindo ao Sistema de Inventário RPG!");
+
+        while (opcao != 0) {
+            System.out.println("\n<><><><><> MENU <><><><><>");
+            System.out.println("1 - Adicionar arma");
+            System.out.println("2 - Adicionar poção");
+            System.out.println("3 - Listar inventário");
+            System.out.println("4 - Atualizar item");
+            System.out.println("5 - Remover item");
+            System.out.println("0 - Finalizar");
+            System.out.print("Escolha uma opção: ");
+            
+            opcao = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Nome da Arma: ");
+                    String nomeArma = scanner.nextLine();
+                        if(nomeArma.trim().isEmpty()) {
+                        System.out.println("Erro: O nome não pode ser vazio.");
+                        break;
+                    }
+                    System.out.print("Peso (kg): ");
+                    double pesoArma = scanner.nextDouble();
+                    System.out.print("Dano: ");
+                    int dano = scanner.nextInt();
+                    
+                    Arma novaArma = new Arma(inventario.gerarId(), nomeArma, pesoArma, dano);
+                    inventario.adicionarItem(novaArma);
+                    break;
+
+                case 2:
+                    System.out.print("Nome da Poção: ");
+                    String nomePocao = scanner.nextLine();
+                        if(nomePocao.trim().isEmpty()) {
+                        System.out.println("Erro: O nome não pode ser vazio.");
+                        break;
+                    }
+                    System.out.print("Peso (kg): ");
+                    double pesoPocao = scanner.nextDouble();
+                    System.out.print("Pontos de Efeito: ");
+                    int cura = scanner.nextInt();
+                    
+                    Pocao novaPocao = new Pocao(inventario.gerarId(), nomePocao, pesoPocao, cura);
+                    inventario.adicionarItem(novaPocao);
+                    break;
+
+                case 3:
+                    inventario.listarItens();
+                    break;
+
+                case 4:
+                    System.out.print("Digite o ID do item que deseja atualizar: ");
+                    int idAtualizar = scanner.nextInt();
+                    scanner.nextLine(); 
+                    System.out.print("Novo nome: ");
+                    String novoNome = scanner.nextLine();
+                        if(novoNome.trim().isEmpty()) {
+                        System.out.println("Erro: O nome não pode ser vazio.");
+                        break;
+                    }
+                    System.out.print("Novo peso: ");
+                    double novoPeso = scanner.nextDouble();
+                    
+                    inventario.atualizarItem(idAtualizar, novoNome, novoPeso);
+                    break;
+
+                case 5:
+                    System.out.print("Digite o ID do item que deseja remover: ");
+                    int idRemover = scanner.nextInt();
+                    inventario.removerItem(idRemover);
+                    break;
+
+                case 0:
+                    System.out.println("Finalizando o sistema. Guardando a mochila...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+        scanner.close();
+    }
+}
